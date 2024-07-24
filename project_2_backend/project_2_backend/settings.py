@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'authentication',
     'rest_framework_simplejwt',
+    'project_2_backend_api',
+    'debug_toolbar',
 ]
 
 REST_FRAMEWORK = {
@@ -71,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'project_2_backend.urls'
@@ -99,8 +102,12 @@ WSGI_APPLICATION = 'project_2_backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'furniture',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
@@ -155,3 +162,7 @@ MEDIA_ROOT = os.path.join(os.path.join(BASE_DIR, 'static'), 'media')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
