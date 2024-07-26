@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from project_2_backend.authentication.models import User
 from django.conf import settings
 
 class Texture(models.Model):
@@ -17,8 +17,7 @@ class TDModel(models.Model):
     scaling = models.JSONField(default=dict(x=0.0, y=0.0, z=0.0))
     rotation = models.JSONField(default=dict(x=0.0, y=0.0, z=0.0))
     translation = models.JSONField(default=dict(x=0.0, y=0.0, z=0.0))
-    color = models.JSONField(default=dict(x=0.0, y=0.0, z=0.0, alpha=1.0))
-    textures = models.ManyToManyField(Texture, null=True)
+    color = models.JSONField(default=dict(r=0.0, g=0.0, b=0.0, a=1.0))
     type = models.CharField(choices=TYPE_CHOICES, max_length=150)
     
     def __str__(self):
@@ -37,7 +36,8 @@ class Object(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     url = models.FileField(upload_to='objects/')
-    
+    textures = models.ManyToManyField(Texture, null=True)
+    material = models.FileField(upload_to='objects/materials/')
     
 class ObjectImage(models.Model):
     object = models.ForeignKey(Object, on_delete=models.CASCADE)
